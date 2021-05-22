@@ -1,0 +1,41 @@
+# REST API
+기계와 기계가 http가지고 서로 통신하는 것이다.
+남의 컴퓨터에서 기능을 실행시킨다. 기능이 아니다.
+client와 server가 어떤 dataType으로 통신할 것인지 규정하지 않는다.
+resource를 식별할때는 url를 통해 식별한다.
+resource를 가지고 어떤 행동을 할때는 method를 이용한다.
+결과를 알려줄때는 http code를 통해 알려준다.
+
+# API
+간단히 말하면 컴퓨터의 기능을 실행시키는 방법이다.
+
+# REST API관련 용어.
+Resource : data이다. url를 통해 식별한다.
+element : 하나하나의 요소 data.
+collection : element들이 모인 data.      
+method = post, get, put | fetch, delete
+           C    R       U          D
+Resource를 API를 이용해 CRUD를 하는 것. 
+
+# HTTP
+HTTP code를 보고 error인지 어떤상태인지 알 수 있다. ex) 200,201,404 ....
+
+# Create
+
+
+# read
+1. 식별자나 element_value 등을 통해서 가져오기.
+2. 그룹이나 전체를 지명해서 가져오기.
+모두 get을 통해 가져온다.
+
+# update
+1. element를 지명해서 element에 value에만 update가 가능하다.
+2. put을 통해 collection을 update한다.
+
+# delete
+delete 전체 삭제는 막혀있는 경우도 많다.
+
+# GraphQL
+원하는 것만 뽑을 수 있다. 
+한번의 요청으로 다 뽑을 수 있다.
+url방식이 아닌 class를 통해 data를 이용한다.

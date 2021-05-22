@@ -1,0 +1,62 @@
+# Oauth
+다른 사이트의 계정에 대한 정보를 쉽게 공유할 수 있도록 도와주는 공통적인 수단이다.
+Oauth는 개방형 표준(오픈 표준)으로 문서가 공개되어 있어서 사용에 비용이 안 든다. 
+개방형 표준 : 소스들이 모두 공개되어있고, 따로 비용이 발생하지 않는다. (지역에 따라 정의가 조금씩 다르다)
+
+# Federated identity
+Mine : 내 service
+User : 내 Service를 이용하는 client
+Resource Ower : Resource 자체를 가지고 있는 User이다.
+Resource Server : User의 data를 가지고 있는 Server.
+Authorization Server : 인증에 관련된 Server이다. 하지만 생활코딩 수업에서는 Resource Server와 통합해서 본다.
+access Token : Resource Server에 access Token에 허용된 data 만큼 받을 수 있다.
+register : mine이 Resource Server에게 등록하는 것.
+validator : 검증자.
+
+User에게 id, 비밀번호를 받아서 Resource Server에 있는 data와 확인해 보는 것.
+access Token을 받아서 Resource Server에 접근을 허용 받는 것.
+
+=> Id 비밀번호 보안상 문제를 신경쓰지 않아도 된다.
+
+# Oauth 등록과정 관련 용어들.
+Client Id                       식별자 (노출해도 된다)
+Client Secret                   비밀번호 (노출 X)
+Authorized redirect URLs        url주소로 data를 보내준다.
+Authorization code              Rosource server가 생성한 임시비밀번호.
+access Token                    Resource Server data를 사용할 수 있도록 허용해주는 Token. (수명이 있다)
+refresh token                   access Token이 수명이 다 됐을때 새로 발급되도록 도와준다.
+
+# access Token 발급과정.
+Resource Owner가 my server에 로그인하려고 하는데, Federated identity를 통해 Resource Server에서 data를 얻으려고 하는 경우
+ex) 
+kakao로 접속하기 클릭하면
+=> Resource.server/?client_id=value&scope=resource1,resource2&redirect_url=https://clinet/callback
+Resource Server의 redirect url과 클릭했을때의 redirect_url 값이 같으면 
+Resource Server가 Owner에게 server에서 필요한 data를 보내도 되겠냐고 물어본다.
+허락하면 Resource Server가 Authorization code(임시비번)을 만들어서 Resource Owner에게 준다.
+Resource Owner는 code(임시비번)을 my Server에게 다시 보낸다.
+My Server는 Client id, secret, Authorization code, Redirect url을 Resource Server에게 보낸다.
+이 정보들을 Resource Sever가 모두 확인해본다.
+모든 정보가 일치하면 access, refresh Token을 생성하고, Authorization code(임시비번)을 제거한다.
+access Token은 Resource Server에 있는 많은 data중에 my server에서 필요한 data만을 골라 주는 것이다.
+
+# API 호출.
+Resource Server data를 API를 통해 control하기.
+
+Resource server에 access Token을 통한 로그인을 해야된다.
+
+API 호출하기.
+1. https://url/data_adress?access_token="access_token_value"                                    더 적게쓴다.
+2. curl -H "Authorization : Bearer access_token_value" https://url/data_adress?access_token     더 선호하는 방식
+
+# curl
+curl -H     Header
+curl은 webPageUrl을 적으면 다운로드된다.
+
+# refresh Token
+access Token의 수명이 다되서 사용하지 못하게되면 refresh Token을 통해 
+새로운 수명의 access Token을 위에 발급과정없이 재발급 받을 수 있도록 해준다.
+
+# 더 공부해야 될 내용.
+Oauth : API를 제어하는 것.
+Restfull, Json, XML
