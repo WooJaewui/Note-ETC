@@ -1,0 +1,45 @@
+# Home Server
+
+공유기를 가지고 internet을 사용하는 computer에서 server를 구축하기.
+
+# IPV4 & IPV6
+
+42억개의 ip주소 ipv4가 모두 사용이되어서 새로운 주소개념 ipv6가 생겨놨다.
+
+
+# internet 관련 용어.
+
+router                                  하나의 ip주소를 통해 여러개의 computer에 internet을 사용할 수 있도록 해준다.
+Ip 주소                                 internet protocal address => client, server모두 ip 주소를 알아야된다.
+WAN wide area network                   통신사에서 들어온 cable을 꼽는 곳. 공유기에게 Ip주소를 부여한다. (public Ip)
+LAN local area network                  cable을 device(computer)와 연결한다. 
+Gateway address (Route address)         Router와 device 사이에 생성된 ip주소. (private ip의 통합 ip)
+public IP address                       통신사와 Router 사이에 생성되는 ip주소.
+private IP address                      Router와 device 사이에 생성된 ip주소.
+NAT Network Address Translation         Router에서 private address와 public address로 서로 바꿔주는 일.
+IPv4 address                            private IP address
+IPv4 default gateway                    private ip address 통합 ip address                  
+
+==> ip 번호에 따라 private인지 public인지 구분이 가능하다.
+
+
+# device가 외부 web에게 무언가를 요청할때 공유기가 하는일
+
+Router에 private Ip address를 기억해둔다.
+Router에서 private ip address를 public ip address로 바꿔준다. => NAT를 통해 번역된다
+외부 ip address를 통해 data를 받아온다.
+public ip address를 통해 router로 data를 가져온다.
+router에 data를 요청했던 기억된 private ip address로 data를 보내준다.
+
+
+# cdm
+
+ipconfig /all                           ip 관련된 정보들이 나온다.
+route                                   공유기 route 관련된 정보들이 나온다.
+
+
+# web
+
+router gateway address를 알아내서 web에 적으면 router 관리자에 접속 할 수 있다.
+router 관리자에서 외부 ip address, 내부 ip address를 확인 할 수 있다.
+My ip address를 search하면 public ip address를 알 수 있다.
