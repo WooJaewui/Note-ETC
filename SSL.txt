@@ -1,0 +1,131 @@
+# HTTP
+
+Web에 구성요소.
+HTML, URL, Web browser, Web server, HTTP
+
+
+# Hyper Text Tranfer Protocal
+
+HTTP        Client와 Server간의 통신규칙. request와 response의 규칙.
+request     Client가 Server에게 부탁하는 것.
+response    Server가 Clinet에 부탁에 대답하는 것.
+
+
+# Web Browser
+
+Web Browser                         Client가 요청한 것을 server에게 물어봐주고, 그 응답을 Web상에서 표시해준다.
+Web Browser Inspect Network         Request와 Response를 저장해서 모니터링 할 수 있는 곳.
+
+
+# Request Header
+
+Request Line                    html.file, html version 
+Request Headers                 Host(가상호스트), User-Agent(web browser), OS관련 정보, last modified 등.
+Request Message Header          Request Line과 Request Headers를 합친 것. (Request에 대한 정보)
+
+----- Blank line -----
+
+Request Message Body            실제 Web Server에 요청되는 내용. (Header는 정보들이다)
+
+
+# Response Header
+
+Response status                 status code 상태 결과를 알려주는 것.
+Response Headers                Content-Type, Date, Content-Length, Last modified 등.
+Response Message Header         Response status, Response Headers를 합친 것. (Response에 대한 정보)
+
+----- Blank line -----
+
+Response Message body           실제 Web browser에서 보이는 내용. (Header는 정보들이다)
+
+
+# status code
+
+100         정보와 관련된 것.
+200         성공과 관련된 것.
+300         Redirection과 관련된 것.
+400         Client Error. ex) 403 Forbidden ,404 Not Found.
+500         Server Error. ex) 500 Internal Server Error
+
+
+# Https, SSL
+
+디지털인증서         Client와 Server간에 통신을 제3자(CA)가 보증해주는 문서다. 
+
+Https               Hyper Text Transfer Protocal Over Secure Socket Layer => http에 secure가 적용된 방식.
+                    안전하게 통신할 수 있도록 도와준다.
+
+SSL                 네스케이프에서 발명된 Secure 통신 규칙이다.      
+TLS                 SSL에서 표준화 기구인 IETF로 관리자가 변경되면서 이름이 바뀌었다.
+
+
+# SSL 동작방법.
+
+1. handshake            - Client Hello : Random Data를 Server로 전송한다. 
+                                         Client 지원하는 암호화 방식을 Server에게 전송한다. (호환가능한지)
+                                         Session Id : 이미 handshake 했던 client는 바로 접속.
+
+                        - Server Hello : Random Data를 Client에게 전송한다.
+                                         Client가 보내준 암호화 방식중에 가장 좋은 방식을 Client에게 알려준다.
+                                         인증서를 전송한다. (Server가 생성한 public-key를 같이 보낸다)
+                                         Client는 Server가 보내준 인증서를 확인한다. (인증기관에 인증키를 얻어서 확인)
+                    
+                        - pre master secret key : Client는 Random Data들로 이라는 pre master secret key를 생성한다.
+                                                  Client는 pre master secret key를 
+                                                  server에게 받은 public key로 암호화해서 server에게 보낸다.
+                                                  pre master secret key => master secret key => session key로 만든다.
+                                                  Clinet와 Server가 둘다 session key를 가지고 있는다.
+
+2. Session              - Client와 Server가 data를 주고 받을때, session key로 암호화해서 보낸다. (대칭키 방식으로)
+
+3. Session end          - data 전송이 끝나면 session은 종료한다.
+
+좀 더 안전한 방법은 비대칭키 방식이지만, 컴퓨터의 많은 부담을 줘서 대칭키와 비대칭키를 혼합하는 방식을 사용한다.
+
+
+# SSL 인증서에 대한 이해.
+
+SSL 인증서의 역할.
+
+1. Client가 접속한 Server가 신뢰 할 수 있는 서버임을 보장한다.
+2. SSL 통신에 사용할 Public-key를 Client에게 제공한다.
+
+SSL 인증서의 내용.
+
+1. 서비스의 정보 ( 인증서를 발급한 CA, service의 domain 등 )
+2. Server의 Public-key( public-key의 내용, public-key 암호화 방법 )
+
+CA Certificate Authority        인증서를 발급해주는 기관. (Root Certificate라고도 한다)
+                                엄격한 기준에 의해 선정된다.
+                                URL에 https X : 사설 SSL을 사용하는 것이다.
+                                Web Browser가 CA와 CA의 public-key를 알고 있다.
+                                Server는 public-key와 service에 대한 정보를 CA에게 보내면 인증서가 발급된다.
+                                인증서는 CA에 private-key로 암호화 되어 있다.
+
+
+# 인증서 동작방법.
+
+Web Browser와 SSL 인증서.
+
+1. Web Browser가 Server에 접속하면 Server는 제일 먼저 인증서를 제공한다.
+2. Browser는 인증서가 자신이 알고있는 CA리스트에 있는지 확인한다. 
+3. Browser는 인증서의 CA와 list의 CA가 맞다면 CA의 public-key를 이용해서 인증서를 복호화해본다. 
+4. 복호화가 됐다면, CA에서 발급한 인증서이다.
+
+
+# StarSSL 인증서 생성과정에서 얻게 되는 것.
+
+1. server의 private key.
+2. digital 인증서.
+3. Root CA 인증서.
+4. 중계자 인증서.
+
+
+# 더 공부해야 될 것.
+
+cache                           저장하는 것.
+cache-control, pragma           cache가 갱신과 관련되어있다.
+cookie                          data를 기록해준다.
+web-storage                     cookie보다 안전하게 많은 data를 저장할 수 있는 것.
+proxy server                    사용자의 요청을 분산해준다.
+Wireshark                       Network Traffic을 감시할 수 있다.
