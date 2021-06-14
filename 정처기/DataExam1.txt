@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 스프레드시트 및 프레젠테이션.
 
 
@@ -344,8 +344,14 @@ PC.
 
 - FIFO : 먼저 들어온것을 먼저 나감.
 
-- LRU ( Least Recently Used ) : 최근에 가장 적게 사용한 페이지를 뺌.
+- LRU ( Least Recently Used ) : 최근에 가장 오랫동안 사용하지 않은 페이지를 뺌.
 
-- LFU ( Least Frequently Used ) :
+- LFU ( Least Frequently Used ) : 사용횟수가 가장 적은 페이지를 뺌.
 
-﻿
+- NUR ( Not Used Recently ) : 최근에 사용되지 않은 페이지를 뺌.
+
+- 최적화 기법 ( OPTimal replacement ) : 가장 오랫동안 사용되지 않거나 사용도가 낮은 페이지를 뺌.
+
+
+
+
